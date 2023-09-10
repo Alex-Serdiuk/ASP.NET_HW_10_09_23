@@ -1,19 +1,18 @@
 using System.Xml.Linq;
-
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 
 app.Use(async (context, next) =>
 {
-    // Отримуємо інформацію про клієнта
+    // ГЋГІГ°ГЁГ¬ГіВєГ¬Г® ВіГ­ГґГ®Г°Г¬Г Г¶ВіГѕ ГЇГ°Г® ГЄГ«ВіВєГ­ГІГ 
     context.Items["browserInfo"] = context.Request.Headers["User-Agent"].ToString();
     context.Items["clientIp"] = context.Connection.RemoteIpAddress.ToString();
 
-    // Інформація про себе
-    context.Items["name"] = "Олексій";
-    context.Items["surname"] = "Сердюк";
-    context.Items["group"] = "ВПУ011м";
+    // ВІГ­ГґГ®Г°Г¬Г Г¶ВіГї ГЇГ°Г® Г±ГҐГЎГҐ
+    context.Items["name"] = "ГЋГ«ГҐГЄГ±ВіГ©";
+    context.Items["surname"] = "Г‘ГҐГ°Г¤ГѕГЄ";
+    context.Items["group"] = "Г‚ГЏГ“011Г¬";
 
     
 
@@ -23,23 +22,23 @@ app.Use(async (context, next) =>
 
 app.MapGet("/", async (context) =>
 {
-    // Будуємо HTML сторінку
+    // ГЃГіГ¤ГіВєГ¬Г® HTML Г±ГІГ®Г°ВіГ­ГЄГі
     var htmlContent = @"
         <!DOCTYPE html>
         <html lang=""en"">
         <head>
             <meta charset=""UTF-8"">
             <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-            <title>Моя інформація</title>
+            <title>ГЊГ®Гї ВіГ­ГґГ®Г°Г¬Г Г¶ВіГї</title>
         </head>
         <body>
-            <h1>Моя інформація</h1>
-            <p>Ім'я: " + context.Items["name"] + @"</p>
-            <p>Прізвище: " + context.Items["surname"] + @"</p>
-            <p>Група: " + context.Items["group"] + @"</p>
-            <h2>Інформація про клієнта:</h2>
-            <p>Браузер: " + context.Items["browserInfo"] + @"</p>
-            <p>IP клієнта: " + context.Items["clientIp"] + @"</p>
+            <h1>ГЊГ®Гї ВіГ­ГґГ®Г°Г¬Г Г¶ВіГї</h1>
+            <p>ВІГ¬'Гї: " + context.Items["name"] + @"</p>
+            <p>ГЏГ°ВіГ§ГўГЁГ№ГҐ: " + context.Items["surname"] + @"</p>
+            <p>ГѓГ°ГіГЇГ : " + context.Items["group"] + @"</p>
+            <h2>ВІГ­ГґГ®Г°Г¬Г Г¶ВіГї ГЇГ°Г® ГЄГ«ВіВєГ­ГІГ :</h2>
+            <p>ГЃГ°Г ГіГ§ГҐГ°: " + context.Items["browserInfo"] + @"</p>
+            <p>IP ГЄГ«ВіВєГ­ГІГ : " + context.Items["clientIp"] + @"</p>
         </body>
         </html>";
     await context.Response.WriteAsync(htmlContent);
